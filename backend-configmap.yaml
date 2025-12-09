@@ -4,5 +4,5 @@ metadata:
   name: backend-config
 data:
   DB_HOST: "localhost"
-  DB_NAME: "exampledb"
-  DB_USER: "mqtt_user"
+  DB_NAME: "kubernets_db"
+  DB_USER: "kuber_user"
