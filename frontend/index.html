@@ -50,6 +50,7 @@
             <button onclick="checkHealth()">Check Backend Health</button>
             <button onclick="initDB()">Initialize Database</button>
             <button onclick="getUsers()">Get Users</button>
+            <button onclick="getRandomUser()">Random User</button>
         </div>
 
         <div id="result"></div>
@@ -85,6 +86,17 @@
                 const response = await fetch('api/users');
                 const data = await response.json();
                 resultDiv.textContent = 'Users: ' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        // ✅ New function for random user
+        async function getRandomUser() {
+            try {
+                const response = await fetch('api/random-user');
+                const data = await response.json();
+                resultDiv.textContent = 'Random User: ' + JSON.stringify(data, null, 2);
             } catch (error) {
                 resultDiv.textContent = 'Error: ' + error.message;
             }

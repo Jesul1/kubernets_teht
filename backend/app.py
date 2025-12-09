@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import mysql.connector
+import random
 import os
 
 app = Flask(__name__)
@@ -52,6 +53,32 @@ def init_db():
         return jsonify({"message": "Database initialized"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+funny_first_names = [
+    "Giga", "Ultra", "Mega", "Baby", "Sneaky", "Chonky", "Sir", "Professor", "Doctor", "Mister"
+]
+
+funny_last_names = [
+    "Noodle", "Thunder", "McFluff", "Wobbles", "Bananapants", "Destroyer", "Pickleface", "Boomer", "Gooner"
+]
+
+@app.route('/api/random-user')
+def random_user():
+    name = f"{random.choice(funny_first_names)} {random.choice(funny_last_names)}"
+    email = name.lower().replace(" ", ".") + "@hotmail.com"
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+                INSERT INTO users (name, email) VALUES
+                ('""" + name + """', '""" + email + """')""")
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({"message": "Random user added"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
