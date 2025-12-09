@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: backend-config
 data:
-  DB_HOST: "localhost"
+  DB_HOST: "mysql"
   DB_NAME: "kubernets_db"
   DB_USER: "kuber_user"
